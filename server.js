@@ -5,9 +5,13 @@ var port = process.env.PORT || 8000;
 var cors = require('cors');
 var logger = require('morgan');
 var knex = require('./db/knex');
+var authors = require('./routes/authorRoutes');
+var books = require('./routes/bookRoutes');
+var genres = require('./routes/genreRoutes');
+var publishers = require('./routes/publisherRoutes');
+var details = require('./routes/detailRoutes');
 
 var index = require('./routes/indexRoutes');
-var todos = require('./routes/todosRoutes');
 
 var app = express();
 
@@ -20,7 +24,11 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/', index);
-app.use('/todos', todos);
+app.use('/books', books);
+app.use('/genres', genres);
+app.use('/authors', authors);
+app.use('/publishers', publishers);
+app.use('/details', details);
 
 app.listen(port, function() {
 console.log("listening on port: ", port);
