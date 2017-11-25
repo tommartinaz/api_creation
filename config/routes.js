@@ -8,6 +8,7 @@ const details = require('../controllers/details');
 
 module.exports = (app) => {
 
+    app.get('/', index.go_index);
 
     app.get('/authors', authors.get_authors);
     app.get('/authors/:id', authors.get_one_author);
