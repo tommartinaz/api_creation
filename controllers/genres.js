@@ -18,25 +18,25 @@ module.exports = {
     add_genre: (req,res) => {
         knex('genres').insert({
           genre: req.body.genre
-        })
+        }, '*')
         .then(genres => {
-          res.send(genres);
+          res.send(genres[0]);
         });
     },
 
     edit_genre: (req, res) => {
         knex('genres').where('id', req.params.id).update({
           genre: req.body.genre
-        })
+        }, '*')
         .then(genres => {
-          res.redirect('/genres');
+          res.send(genres[0]);
         });
     },
 
     delete_genre: (req, res) => {
         knex('genres').where('id', req.params.id).del()
         .then(genres => {
-          res.redirect('/genres');
+          res.sendStatus(204);
         });
     }
 }

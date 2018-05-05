@@ -19,9 +19,9 @@ module.exports = {
         knex('authors').insert({
             first_name: req.body.first_name,
             last_name: req.body.last_name
-        })
-        .then((authors) => {
-            res.send(authors);
+        }, '*')
+        .then(author => {
+            res.send(author[0]);
         });
     },
 
@@ -29,16 +29,16 @@ module.exports = {
         knex('authors').where('id', req.params.id).update({
             first_name: req.body.first_name,
             last_name: req.body.last_name,
-        })
-        .then((authors) => {
-            res.redirect('/authors');
+        }, '*')
+        .then((author) => {
+            res.send(author[0]);
         });
     },
 
     delete_author: (req,res) => {
         knex('authors').where('id', req.params.id).del()
         .then((authors) => {
-            res.redirect('/authors');
+            res.sendStatus(204);
         });
     }
 }

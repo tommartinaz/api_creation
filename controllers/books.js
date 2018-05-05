@@ -10,8 +10,8 @@ module.exports = {
 
     get_one_book: (req, res) => {
         knex('books').where('id', req.params.id)
-          .then((books) => {
-            res.send(books);
+          .then((book) => {
+            res.send(book);
           });
     },
 
@@ -23,9 +23,9 @@ module.exports = {
             author_id: req.body.author_id,
             publisher_id: req.body.publisher_id,
             cover_img: req.body.cover_img
-          })
+          }, '*')
           .then((books) => {
-            res.send(books);
+            res.send(books[0]);
           });
     },
 
@@ -39,9 +39,9 @@ module.exports = {
                 author_id: req.body.author_id,
                 publisher_id: req.body.publisher_id,
                 cover_img: req.body.cover_img
-            })
+            }, '*')
             .then(books => {
-                res.redirect('/books');
+                res.send(books[0]);
             });
     },
 
@@ -50,7 +50,7 @@ module.exports = {
             .where('id', req.params.id)
             .del()
             .then(books => {
-                res.redirect('/books');
+                res.sendStatus(204);
             });
     }
 }
