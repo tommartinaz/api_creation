@@ -11,7 +11,7 @@ module.exports = {
     get_one_book: (req, res) => {
         knex('books').where('id', req.params.id)
           .then((book) => {
-            res.send(book);
+            res.send(book[0]);
           });
     },
 
